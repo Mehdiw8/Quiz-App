@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: hsla(219, 88%, 56%, 1);
+
+  background: linear-gradient(
+    90deg,
+    hsla(219, 88%, 56%, 1) 0%,
+    hsla(232, 100%, 50%, 1) 100%
+  );
+
+  background: -moz-linear-gradient(
+    90deg,
+    hsla(219, 88%, 56%, 1) 0%,
+    hsla(232, 100%, 50%, 1) 100%
+  );
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+li {
+  color: #fff;
+}
