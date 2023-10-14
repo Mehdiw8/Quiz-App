@@ -1,9 +1,9 @@
 import React from "react";
 
-const Title = ({title}) => {
+const Title = ({ title }) => {
   return (
     <>
-      <h3 className="text-3xl font-bold my-[42px]  ">{title}</h3>
+      <h3 className="text-3xl font-bold mt-[42px] mb-[20px]  ">{title}</h3>
     </>
   );
 };

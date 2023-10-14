@@ -4,11 +4,11 @@ import { quiz } from "../data";
 import Title from "../components/Title";
 import "./quiz.css";
 const Quiz = () => {
-  // توسط این استیت مشخص میکنی که کدوم سوال رو باید نشون بدی و همچنین از دیتا پاسخ ها رو خارج میکنی
+  // moshakhas kon kodum soal namayesh bdi v soal active ro bekesh biron
   const [activeQuestion, setActiveQuestion] = useState(0);
 
-  // store active answer 
-  const [selectAnswer, setSelectAnswer] = useState("");
+  // store active answer
+  const [selectAnswer, setSelectAnswer] = useState();
 
   // vaqti false btn badi or payan disable v dar sorat true shodan btn active mishe
   const [checked, setChecked] = useState(false);
@@ -29,13 +29,44 @@ const Quiz = () => {
 
   // ba in Fanction javab select shode save mishe v style migire
   const selectedClickHandler = (answer, index) => {
-    setSelectAnswer(answer);
+    setChecked(true);
     setSelectAnswerIndex(index);
+    if (answer === correctAnswer) {
+      setSelectAnswer(true);
+    } else {
+      setSelectAnswer(false);
+    }
+  };
+
+  // namayesh soal badi va zakhire kon javab ro
+  const resultHandler = () => {
+    setSelectAnswerIndex(null);
+    if (activeQuestion !== questions.length - 1) {
+      setChecked(false);
+      setActiveQuestion((prev) => prev + 1);
+    } else {
+      setActiveQuestion(0);
+      setShowResult(true);
+    }
+    setResult((prev) =>
+      selectAnswer
+        ? {
+            ...prev,
+            score: prev.score + 5,
+            correctAnswers: prev.correctAnswers + 1,
+          }
+        : { ...prev, wrongAnswers: prev.wrongAnswers + 1 }
+    );
   };
   return (
-    <section className="quiz-container flex flex-col justify-between  ">
+    <section className="quiz-container text-white  flex flex-col justify-between  ">
       <div style={{ margin: "0 1rem 0 1rem" }}>
         <Title title="صفحه آزمون" />
+        {!showResult && (
+          <div className="text-xl mt-[42px] mb-[20px]">
+            سوال : {activeQuestion + 1} از {questions.length}
+          </div>
+        )}
       </div>
       {!showResult ? (
         <>
@@ -48,6 +79,7 @@ const Quiz = () => {
               <ul>
                 {answers.map((a, index) => (
                   <li
+                    key={index}
                     onClick={() => selectedClickHandler(a, index)}
                     className={
                       index !== selectAnswerIndex ? "notPicked" : "picked"
@@ -61,28 +93,33 @@ const Quiz = () => {
           </div>
           <div className="btn-wrapper w-full">
             {checked ? (
-              <button className="text-white ">
+              <button onClick={resultHandler}>
                 {activeQuestion !== questions.length - 1 ? "بعدی" : "پایان"}
               </button>
             ) : (
-              <button className="text-white  " disabled>
+              <button className="btn-disabled  " disabled>
                 {activeQuestion !== questions.length - 1 ? "بعدی" : "پایان"}
               </button>
             )}
           </div>
         </>
       ) : (
-        <div className="quiz-container">
-          <h3>نتایج</h3>
-          <h3>به طور کلی {(result.score / 25) * 100}% سوالات جواب داده شده</h3>
-          <p>کل سوالات : {questions.length}</p>
-          <p>کل امتیاز : {result.score}</p>
-          <p>سوالات درست : {result.correctAnswers}</p>
-          <p>سوالات غلط : {result.wrongAnswers}</p>
+        <div className="resultContainer">
+          <div className="full-w text-center ">
+            <Title title="نتایج " />
+          </div>
 
-          <button onClick={() => window.location.reload()}>
-            شروع مجدد آزمون
-          </button>
+          <div className="flex flex-wrap justify-around my-12 leading-8">
+            <p>کل سوالات : {questions.length}</p>
+            <p>کل امتیاز : {result.score}</p>
+            <p>سوالات درست : {result.correctAnswers}</p>
+            <p>سوالات غلط : {result.wrongAnswers}</p>
+          </div>
+          <div className="btn-wrapper w-full">
+            <button onClick={() => window.location.reload()}>
+              شروع مجدد آزمون
+            </button>
+          </div>
         </div>
       )}
     </section>
