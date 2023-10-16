@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { quiz } from "../data";
 import Title from "../components/Title";
 import "./quiz.css";
-import Loading from "../loading";
+import Skeleton from "react-loading-skeleton";
+import Loading from "./loading";
 const Quiz = () => {
   // moshakhas kon kodum soal namayesh bdi v soal active ro bekesh biron
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -26,8 +27,10 @@ const Quiz = () => {
     wrongAnswers: 0,
   });
 
-  // Loading
-  const [loading, setLoading] = useState(false);
+  //
+  const [currentAnswers, setCurrentAnswers] = useState(null);
+  const [currentQuestion, setCurrentQuestion] = useState("");
+  //
 
   const { questions } = quiz;
   const { answers, correctAnswer, question } = questions[activeQuestion];
@@ -45,6 +48,8 @@ const Quiz = () => {
 
   // namayesh soal badi va zakhire kon javab ro
   const resultHandler = () => {
+    setCurrentQuestion("");
+    setCurrentAnswers(null);
     setSelectAnswerIndex(null);
     if (activeQuestion !== questions.length - 1) {
       setChecked(false);
@@ -68,32 +73,42 @@ const Quiz = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setLoading(true);
-    }, 2000);
-  }, []);
+      setCurrentAnswers(answers);
+      setCurrentQuestion(question);
+      console.log(currentAnswers);
+    }, 1000);
+  }, [result]);
 
   return (
     <>
-      {loading ? (
-        <section className="quiz-container text-white  flex flex-col justify-between  ">
-          <div style={{ margin: "0 1rem 0 1rem" }}>
-            <Title title="صفحه آزمون" />
-            {!showResult && (
-              <div className="text-xl mt-[42px] mb-[20px]">
-                سوال : {activeQuestion + 1} از {questions.length}
+      <section className="quiz-container text-white  flex flex-col justify-between  ">
+        <div style={{ margin: "0 1rem 0 1rem" }}>
+          <Title title="صفحه آزمون" />
+          {!showResult && (
+            <div className="text-xl mt-[42px] mb-[20px]">
+              سوال : {activeQuestion + 1} از {questions.length}
+            </div>
+          )}
+        </div>
+        {!showResult ? (
+          <>
+            <div className="main-wrapper">
+              <div className="q-wrapper">
+                <h3>
+                  {currentQuestion ? (
+                    currentQuestion
+                  ) : (
+                    <Loading width={"93%"} />
+                  )}
+                </h3>
               </div>
-            )}
-          </div>
-          {!showResult ? (
-            <>
-              <div className="main-wrapper">
-                <div className="q-wrapper">
-                  <h3>{question} ؟</h3>
-                </div>
 
-                <div className="a-wrapper">
-                  <ul>
-                    {answers.map((a, index) => (
+              <div className="a-wrapper">
+                <ul>
+                  {!currentAnswers ? (
+                    <Loading count={4} width={"95%"} />
+                  ) : (
+                    currentAnswers.map((a, index) => (
                       <li
                         key={index}
                         onClick={() => selectedClickHandler(a, index)}
@@ -103,45 +118,43 @@ const Quiz = () => {
                       >
                         <span>{a}</span>
                       </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              <div className="btn-wrapper w-full">
-                {checked ? (
-                  <button onClick={resultHandler}>
-                    {activeQuestion !== questions.length - 1 ? "بعدی" : "پایان"}
-                  </button>
-                ) : (
-                  <button className="btn-disabled  " disabled>
-                    {activeQuestion !== questions.length - 1 ? "بعدی" : "پایان"}
-                  </button>
-                )}
-              </div>
-            </>
-          ) : (
-            <div className="resultContainer">
-              <div className="full-w text-center ">
-                <Title title="نتایج " />
-              </div>
-
-              <div className="flex flex-wrap justify-around my-12 leading-8">
-                <p>کل سوالات : {questions.length}</p>
-                <p>کل امتیاز : {result.score}</p>
-                <p>سوالات درست : {result.correctAnswers}</p>
-                <p>سوالات غلط : {result.wrongAnswers}</p>
-              </div>
-              <div className="btn-wrapper w-full">
-                <button onClick={() => window.location.reload()}>
-                  شروع مجدد آزمون
-                </button>
+                    ))
+                  )}
+                </ul>
               </div>
             </div>
-          )}
-        </section>
-      ) : (
-        <Loading />
-      )}
+            <div className="btn-wrapper w-full">
+              {checked ? (
+                <button onClick={resultHandler}>
+                  {activeQuestion !== questions.length - 1 ? "بعدی" : "پایان"}
+                </button>
+              ) : (
+                <button className="btn-disabled  " disabled>
+                  {activeQuestion !== questions.length - 1 ? "بعدی" : "پایان"}
+                </button>
+              )}
+            </div>
+          </>
+        ) : (
+          <div className="resultContainer">
+            <div className="full-w text-center ">
+              <Title title="نتایج " />
+            </div>
+
+            <div className="flex flex-wrap justify-around my-12 leading-8">
+              <p>کل سوالات : {questions.length}</p>
+              <p>کل امتیاز : {result.score}</p>
+              <p>سوالات درست : {result.correctAnswers}</p>
+              <p>سوالات غلط : {result.wrongAnswers}</p>
+            </div>
+            <div className="btn-wrapper w-full">
+              <button onClick={() => window.location.reload()}>
+                شروع مجدد آزمون
+              </button>
+            </div>
+          </div>
+        )}
+      </section>
     </>
   );
 };

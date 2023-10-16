@@ -1,7 +1,7 @@
 import MainLayout from "./components/MainLayout";
 import "./globals.css";
 import Vazir from "next/font/local";
-
+import "react-loading-skeleton/dist/skeleton.css";
 const vazir = Vazir({
   src: "./Vazir.woff2",
   display: "swap",
