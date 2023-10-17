@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import { quiz } from "../data";
 import Title from "../components/Title";
 import "./quiz.css";
-import Skeleton from "react-loading-skeleton";
-import Loading from "./loading";
+import Loading from "./skelton";
 const Quiz = () => {
   // moshakhas kon kodum soal namayesh bdi v soal active ro bekesh biron
   const [activeQuestion, setActiveQuestion] = useState(0);
