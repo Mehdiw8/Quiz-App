@@ -3,7 +3,7 @@ import { useState, useEffect, Suspense } from "react";
 import { quiz } from "../data";
 import Title from "../components/Title";
 import "./quiz.css";
-import Loading from "./Loading";
+import Loading from "./loading";
 const Quiz = () => {
   // moshakhas kon kodum soal namayesh bdi v soal active ro bekesh biron
   const [activeQuestion, setActiveQuestion] = useState(0);
