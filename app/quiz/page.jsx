@@ -1,9 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { quiz } from "../data";
 import Title from "../components/Title";
 import "./quiz.css";
-import Loading from "./skelton";
+import Loading from "./Loading";
 const Quiz = () => {
   // moshakhas kon kodum soal namayesh bdi v soal active ro bekesh biron
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -26,11 +26,6 @@ const Quiz = () => {
     wrongAnswers: 0,
   });
 
-  //
-  const [currentAnswers, setCurrentAnswers] = useState(null);
-  const [currentQuestion, setCurrentQuestion] = useState("");
-  //
-
   const { questions } = quiz;
   const { answers, correctAnswer, question } = questions[activeQuestion];
 
@@ -47,8 +42,6 @@ const Quiz = () => {
 
   // namayesh soal badi va zakhire kon javab ro
   const resultHandler = () => {
-    setCurrentQuestion("");
-    setCurrentAnswers(null);
     setSelectAnswerIndex(null);
     if (activeQuestion !== questions.length - 1) {
       setChecked(false);
@@ -68,16 +61,8 @@ const Quiz = () => {
     );
   };
 
-  // useEffect
 
-  useEffect(() => {
-    setTimeout(() => {
-      setCurrentAnswers(answers);
-      setCurrentQuestion(question);
-      console.log(currentAnswers);
-    }, 1000);
-  }, [result]);
-
+  
   return (
     <>
       <section className="quiz-container text-white  flex flex-col justify-between  ">
@@ -94,31 +79,28 @@ const Quiz = () => {
             <div className="main-wrapper">
               <div className="q-wrapper">
                 <h3>
-                  {currentQuestion ? (
-                    currentQuestion
-                  ) : (
-                    <Loading width={"93%"} />
-                  )}
+                  {/* <Suspense fallback={<Loading width={"93%"} />}>
+                    <span>{timeDelay().then(() => currentQuestion)}</span>
+                  </Suspense> */}
+                  {question ? question : <Loading width={"93%"} />}
                 </h3>
               </div>
 
               <div className="a-wrapper">
                 <ul>
-                  {!currentAnswers ? (
-                    <Loading count={4} width={"95%"} />
-                  ) : (
-                    currentAnswers.map((a, index) => (
-                      <li
-                        key={index}
-                        onClick={() => selectedClickHandler(a, index)}
-                        className={
-                          index !== selectAnswerIndex ? "notPicked" : "picked"
-                        }
-                      >
+                  {answers.map((a, index) => (
+                    <li
+                      key={index}
+                      onClick={() => selectedClickHandler(a, index)}
+                      className={
+                        index !== selectAnswerIndex ? "notPicked" : "picked"
+                      }
+                    >
+                      <Suspense fallback={<Loading width={"93%"} />}>
                         <span>{a}</span>
-                      </li>
-                    ))
-                  )}
+                      </Suspense>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
