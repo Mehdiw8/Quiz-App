@@ -1,9 +1,10 @@
 "use client";
-import { useState, useEffect, Suspense } from "react";
+import { useState } from "react";
 import { quiz } from "../data";
 import Title from "../components/Title";
 import "./quiz.css";
 import Loading from "./loading";
+import { Result, Button, Answers } from "../components";
 const Quiz = () => {
   // moshakhas kon kodum soal namayesh bdi v soal active ro bekesh biron
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -61,8 +62,6 @@ const Quiz = () => {
     );
   };
 
-
-  
   return (
     <>
       <section className="quiz-container text-white  flex flex-col justify-between  ">
@@ -86,54 +85,22 @@ const Quiz = () => {
                 </h3>
               </div>
 
-              <div className="a-wrapper">
-                <ul>
-                  {answers.map((a, index) => (
-                    <li
-                      key={index}
-                      onClick={() => selectedClickHandler(a, index)}
-                      className={
-                        index !== selectAnswerIndex ? "notPicked" : "picked"
-                      }
-                    >
-                      <Suspense fallback={<Loading width={"93%"} />}>
-                        <span>{a}</span>
-                      </Suspense>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <Answers
+                answers={answers}
+                selectedClickHandler={selectedClickHandler}
+                selectAnswerIndex={selectAnswerIndex}
+              />
             </div>
-            <div className="btn-wrapper w-full">
-              {checked ? (
-                <button onClick={resultHandler}>
-                  {activeQuestion !== questions.length - 1 ? "بعدی" : "پایان"}
-                </button>
-              ) : (
-                <button className="btn-disabled  " disabled>
-                  {activeQuestion !== questions.length - 1 ? "بعدی" : "پایان"}
-                </button>
-              )}
-            </div>
+            <Button
+              checked={checked}
+              resultHandler={resultHandler}
+              activeQuestion={activeQuestion}
+              questions={questions}
+            />
           </>
         ) : (
-          <div className="resultContainer">
-            <div className="full-w text-center ">
-              <Title title="نتایج " />
-            </div>
-
-            <div className="flex flex-wrap justify-around my-12 leading-8">
-              <p>کل سوالات : {questions.length}</p>
-              <p>کل امتیاز : {result.score}</p>
-              <p>سوالات درست : {result.correctAnswers}</p>
-              <p>سوالات غلط : {result.wrongAnswers}</p>
-            </div>
-            <div className="btn-wrapper w-full">
-              <button onClick={() => window.location.reload()}>
-                شروع مجدد آزمون
-              </button>
-            </div>
-          </div>
+          // Show Result
+          <Result questions={questions} result={result} />
         )}
       </section>
     </>
