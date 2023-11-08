@@ -1,12 +1,12 @@
 ## Folder structure
 
-root -> src -> app
-src -> styles
-src -> assets
-src -> data
-src -> servicecs
-src -> components
-src -> middleware
+root -> src -> app <br />
+src -> styles <br />
+src -> assets <br />
+src -> data <br />
+src -> servicecs <br />
+src -> components <br />
+src -> middleware <br />
 
 # Tips
 * you can use private Folder or File with underline (_folderName)
