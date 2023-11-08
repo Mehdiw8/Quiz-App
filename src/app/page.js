@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Title from "./components/Title";
-import "./home.css";
+import Title from "../components/Title";
+import "@/src/styles/home.css";
 export default function Home() {
   return (
     <main className="  flex justify-center items-center flex-col">

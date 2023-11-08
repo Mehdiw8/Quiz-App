@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import Title from "./components/Title";
+import Title from "../../components/Title";
 
 export default function Error({ error, reset }) {
   useEffect(() => {

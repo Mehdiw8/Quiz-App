@@ -1,9 +1,9 @@
-import MainLayout from "./components/MainLayout";
-import "./globals.css";
+import MainLayout from "../components/MainLayout";
+import "@/src/styles/globals.css";
 import Vazir from "next/font/local";
 import "react-loading-skeleton/dist/skeleton.css";
 const vazir = Vazir({
-  src: "./Vazir.woff2",
+  src: "../assets/Vazir.woff2",
   display: "swap",
 });
 
@@ -13,7 +13,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  
   return (
     <html lang="fa" dir="rtl">
       <body className={vazir.className}>
