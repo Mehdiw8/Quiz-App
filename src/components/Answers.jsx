@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import Loading from '../loading';
+import Loading from '../app/loading';
 
 const Answers = ({answers ,selectedClickHandler ,selectAnswerIndex}) => {
     return (

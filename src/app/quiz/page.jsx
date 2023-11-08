@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import { quiz } from "../data";
-import Title from "../components/Title";
-import "./quiz.css";
+import { quiz } from "../../data/data";
+import Title from "../../components/Title";
+import "@/src/styles/quiz.css";
 import Loading from "./loading";
-import { Result, Button, Answers } from "../components";
+import { Result, Button, Answers } from "../../components";
 const Quiz = () => {
   // moshakhas kon kodum soal namayesh bdi v soal active ro bekesh biron
   const [activeQuestion, setActiveQuestion] = useState(0);

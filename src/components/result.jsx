@@ -1,7 +1,7 @@
 import React from "react";
 import Title from "./Title";
 
-const Result = ({questions,result}) => {
+const Result = ({ questions, result }) => {
   return (
     <div className="resultContainer">
       <div className="full-w text-center ">
