@@ -1,10 +1,6 @@
 import Link from "next/link";
-// import { getLangs } from "./[lang]/lang";
-// import { useParams } from "next/navigation";
-const NotFound = async () => {
-  // const dict = await getLangs(params.lang);
-  // console.log(params);
-  // اینجا چون پارامز داینامیک ما بعد  آدرس اصلی در واقع لوکال هاست هست و این لیوت برای صفحه اصلی هست به پارامز داینامیک دسترسی نداریم
+
+const NotFound = () => {
   return (
     <>
       <div className="w-full h-screen flex flex-col items-center justify-center">

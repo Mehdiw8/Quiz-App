@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import Loading from '../app/loading';
+import Loading from '../app/[lang]/loading';
 
 const Answers = ({answers ,selectedClickHandler ,selectAnswerIndex}) => {
     return (
@@ -14,7 +14,7 @@ const Answers = ({answers ,selectedClickHandler ,selectAnswerIndex}) => {
                       }
                     >
                       <Suspense fallback={<Loading width={"93%"} />}>
-                        <span>{a}</span>
+                        <span className='mx-2'>{a}</span>
                       </Suspense>
                     </li>
                   ))}

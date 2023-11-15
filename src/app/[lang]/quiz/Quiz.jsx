@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
-import { quiz } from "../../data/data";
-import Title from "../../components/Title";
+import { quiz } from "../../../data/data";
+import Title from "../../../components/Title";
 import "@/src/styles/quiz.css";
 import Loading from "./loading";
-import { Result, Button, Answers } from "../../components";
-const Quiz = () => {
+import { Result, Button, Answers } from "../../../components";
+const Quiz = ({ dict, lang }) => {
   // moshakhas kon kodum soal namayesh bdi v soal active ro bekesh biron
   const [activeQuestion, setActiveQuestion] = useState(0);
 
@@ -27,8 +27,11 @@ const Quiz = () => {
     wrongAnswers: 0,
   });
 
-  const { questions } = quiz;
-  const { answers, correctAnswer, question } = questions[activeQuestion];
+  const { Faquestions, Enquestions } = quiz;
+  const { answers, correctAnswer, question } =
+    lang === "fa-ir" || lang === "fa"
+      ? Faquestions[activeQuestion]
+      : Enquestions[activeQuestion];
 
   // ba in Fanction javab select shode save mishe v style migire
   const selectedClickHandler = (answer, index) => {
@@ -44,7 +47,7 @@ const Quiz = () => {
   // namayesh soal badi va zakhire kon javab ro
   const resultHandler = () => {
     setSelectAnswerIndex(null);
-    if (activeQuestion !== questions.length - 1) {
+    if (activeQuestion !== Faquestions.length - 1) {
       setChecked(false);
       setActiveQuestion((prev) => prev + 1);
     } else {
@@ -66,10 +69,11 @@ const Quiz = () => {
     <>
       <section className="quiz-container text-white  flex flex-col justify-between  ">
         <div style={{ margin: "0 1rem 0 1rem" }}>
-          <Title title="صفحه آزمون" />
+          <Title title={dict["quiz"].title} />
           {!showResult && (
-            <div className="text-xl mt-[42px] mb-[20px]">
-              سوال : {activeQuestion + 1} از {questions.length}
+            <div className="text-xl mx-2 mt-[42px] mb-[20px]">
+              {dict["quiz"].quizNum1}: {activeQuestion + 1}{" "}
+              {dict["quiz"].quizNum2} {Faquestions.length}
             </div>
           )}
         </div>
@@ -95,12 +99,13 @@ const Quiz = () => {
               checked={checked}
               resultHandler={resultHandler}
               activeQuestion={activeQuestion}
-              questions={questions}
+              questions={Faquestions}
+              dict={dict}
             />
           </>
         ) : (
           // Show Result
-          <Result questions={questions} result={result} />
+          <Result questions={Faquestions} result={result} dict={dict}/>
         )}
       </section>
     </>

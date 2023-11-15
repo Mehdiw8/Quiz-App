@@ -1,6 +1,61 @@
 export const quiz = {
   totalQuestions: 5,
-  questions: [
+  Enquestions: [
+    {
+      id: 1,
+      question: "The number of olympic rings ?",
+      answers: ["5 rings", "6 rings", "7 rings", "8 rings"],
+      correctAnswer: "5 rings",
+    },
+    {
+      id: 2,
+      question: "How often should the tire pressure be checked?",
+      answers: [
+        "twice every month",
+        " once a week",
+        "Once every day",
+        "once every month",
+      ],
+      correctAnswer: "Once every day",
+    },
+    {
+      id: 3,
+      question:
+        "If the patient's chest moves but air flow is not heard or felt, what is the sign?",
+      answers: [
+        "Heart",
+        "spinal cord",
+        "blood pressure",
+        "Lung airway obstruction",
+      ],
+      correctAnswer: "Heart",
+    },
+    {
+      id: 4,
+      question: "In which province is Sahand Heights located ?",
+      answers: ["East Azarbaijan", "Western Azerbaijan", "Kurdistan", "Zanjan"],
+      correctAnswer: "East Azarbaijan",
+    },
+    {
+      id: 5,
+      question: "Which tree is a symbol of peace ?",
+      answers: ["Cedar", "Olive", "Apple", "Orange"],
+      correctAnswer: "Olive",
+    },
+    {
+      id: 6,
+      question: "How long decomposition of plastic containers takes ?",
+      answers: ["50 years", "500 years", "5,000 years", "50,000 years"],
+      correctAnswer: "500 years",
+    },
+    {
+      id: 7,
+      question: "Where is the Langerhans Islands ?",
+      answers: ["Oceania", "Pancreas", "Spain", "Skull"],
+      correctAnswer: "Pancreas",
+    },
+  ],
+ Faquestions: [
     {
       id: 1,
       question: "تعداد حلقه های المپیک",
