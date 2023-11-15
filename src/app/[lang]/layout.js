@@ -2,6 +2,8 @@ import MainLayout from "../../components/MainLayout";
 // import "@/src/styles/globals.css";
 import Vazir from "next/font/local";
 import "react-loading-skeleton/dist/skeleton.css";
+import "../../styles/globals.css";
+
 const vazir = Vazir({
   src: "../../assets/Vazir.woff2",
   display: "swap",

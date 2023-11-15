@@ -2,6 +2,7 @@ import Link from "next/link";
 import Title from "../../components/Title";
 import "@/src/styles/home.css";
 import { getLangs } from "./lang";
+
 export default async function Home({ params: { lang } }) {
   const dict = await getLangs(lang);
   return (

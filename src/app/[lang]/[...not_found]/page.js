@@ -1,10 +1,8 @@
 import Link from "next/link";
-// import { getLangs } from "./[lang]/lang";
-// import { useParams } from "next/navigation";
-const NotFound = async () => {
-  // const dict = await getLangs(params.lang);
-  // console.log(params);
-  // اینجا چون پارامز داینامیک ما بعد  آدرس اصلی در واقع لوکال هاست هست و این لیوت برای صفحه اصلی هست به پارامز داینامیک دسترسی نداریم
+import { getLangs } from "../lang";
+
+const NotFound = async ({ params: { lang } }) => {
+  const dict = await getLangs(lang);
   return (
     <>
       <div className="w-full h-screen flex flex-col items-center justify-center">
@@ -161,8 +159,8 @@ const NotFound = async () => {
           ></path>
         </svg>
         <div className="flex flex-col items-center justify-center">
-          <p className="text-3xl md:text-4xl lg:text-5xl text-white-800 mt-12">
-            صفحه مورد نظر یافت نشد
+          <p className="text-2xl md:text-4xl lg:text-5xl text-white-800 mt-12 text-center">
+            {dict["notFound"].message}
           </p>
 
           <Link
@@ -170,7 +168,7 @@ const NotFound = async () => {
             className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 mt-12 rounded transition duration-150"
             title="Return Home"
           >
-            <span href={"/"}>بازگشت به صفحه اول</span>
+            <span href={"/"}>{dict["notFound"].backToHome}</span>
 
             <svg
               xmlns="http://www.w3.org/2000/svg"
