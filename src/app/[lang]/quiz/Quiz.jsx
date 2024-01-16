@@ -7,7 +7,7 @@ import Loading from "./loading";
 import { Result, Button, Answers } from "../../../components";
 const Quiz = ({ dict, lang }) => {
 
-  throw new Error('hahah')
+
   // moshakhas kon kodum soal namayesh bdi v soal active ro bekesh biron
   const [activeQuestion, setActiveQuestion] = useState(0);
 
